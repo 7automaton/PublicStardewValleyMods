@@ -47,8 +47,8 @@ namespace WhatAreYouMissing
 
                 Menu whatIsMissingMenu = new Menu();
                 Game1.activeClickableMenu = whatIsMissingMenu;
+                Game1.playSound("bigSelect");
             }
         }
-
     }
 }

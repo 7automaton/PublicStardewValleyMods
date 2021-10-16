@@ -216,9 +216,14 @@ namespace WhatAreYouMissing
             b.Draw(Game1.mouseCursors, new Vector2(Game1.getOldMouseX(), Game1.getOldMouseY()), new Rectangle?(Game1.getSourceRectForStandardTileSheet(Game1.mouseCursors, Game1.options.gamepadControls ? 44 : 0, 16, 16)), Color.White, 0.0f, Vector2.Zero, Game1.pixelZoom + Game1.dialogueButtonScale / 150f, SpriteEffects.None, 1f);
         }
 
-        private void ChangeTab(int tabIndex)
+        private void ChangeTab(int tabIndex, bool playSound)
         {
-            CurrentTab = tabIndex;
+            if (CurrentTab != tabIndex) {
+                CurrentTab = tabIndex;
+                if (playSound) {
+                    Game1.playSound("smallSelect");
+                }
+            }
         }
 
         public override void receiveLeftClick(int x, int y, bool playSound = true)
@@ -236,7 +241,7 @@ namespace WhatAreYouMissing
                 ClickableComponent tab = tabs[i];
                 if (tab.containsPoint(x, y) && CurrentTab != i)
                 {
-                    ChangeTab(i);
+                    ChangeTab(i, playSound);
                 }
             }
             pages[CurrentTab].receiveLeftClick(x, y, playSound);

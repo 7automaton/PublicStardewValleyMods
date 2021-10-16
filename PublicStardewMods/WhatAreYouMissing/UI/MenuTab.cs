@@ -123,14 +123,18 @@ namespace WhatAreYouMissing
             if(upArrow.containsPoint(x, y) && currentItemIndex > 0)
             {
                 upArrow.scale = upArrow.baseScale;
-                TryToMoveUpOneItem();
-                Game1.playSound("shwip");
+                TryToMoveUpOneItem(false);
+                if (playSound) {
+                    Game1.playSound("shwip");
+                }
             }
             else if(downArrow.containsPoint(x, y) && currentItemIndex < Items.Count - NUM_VIEWABLE)
             {
                 downArrow.scale = downArrow.baseScale;
-                TryMoveDownOneItem();
-                Game1.playSound("shwip");
+                TryMoveDownOneItem(false);
+                if (playSound) {
+                    Game1.playSound("shwip");
+                }
             }
             else if(scrollBar.containsPoint(x, y))
             {
@@ -170,11 +174,14 @@ namespace WhatAreYouMissing
             }
         }
 
-        private void TryToMoveUpXItems(int x)
+        private void TryToMoveUpXItems(int x, bool playSound = true)
         {
             if (currentItemIndex > x - 1)
             {
                 currentItemIndex -= x;
+                if (playSound) {
+                    Game1.playSound("shiny4");
+                }
             }
             else
             {
@@ -185,11 +192,14 @@ namespace WhatAreYouMissing
             SetScrollBarToCurrentItem();
         }
 
-        private void TryToMoveDownXItems(int x)
+        private void TryToMoveDownXItems(int x, bool playSound = true)
         {
             if (currentItemIndex < Items.Count - NUM_VIEWABLE - x + 1)
             {
                 currentItemIndex += x;
+                if (playSound) {
+                    Game1.playSound("shiny4");
+                }
             }
             else
             {
@@ -198,21 +208,27 @@ namespace WhatAreYouMissing
             SetScrollBarToCurrentItem();
         }
 
-        private void TryToMoveUpOneItem()
+        private void TryToMoveUpOneItem(bool playSound = true)
         {
             if(currentItemIndex > 0)
             {
                 currentItemIndex -= 1;
                 SetScrollBarToCurrentItem();
+                if (playSound) {
+                    Game1.playSound("shiny4");
+                }
             }
         }
 
-        private void TryMoveDownOneItem()
+        private void TryMoveDownOneItem(bool playSound = true)
         {
             if(currentItemIndex < Items.Count - NUM_VIEWABLE)
             {
                 currentItemIndex += 1;
                 SetScrollBarToCurrentItem();
+                if (playSound) {
+                    Game1.playSound("shiny4");
+                }
             }
         }
 
@@ -243,7 +259,6 @@ namespace WhatAreYouMissing
             {
                 TryMoveDownOneItem();
             }
-            Game1.playSound("shiny4");
         }
 
         public override void performHoverAction(int x, int y)
